@@ -1,15 +1,9 @@
-import NextAuth, { type NextAuthOptions } from "next-auth";
+import NextAuth, { type NextAuthOptions } from 'next-auth';
 import GoogleProvider from 'next-auth/providers/google';
 import { PrismaAdapter } from '@next-auth/prisma-adapter';
 import { prisma } from './../../../db/client';
 
 export const authOptions: NextAuthOptions = {
-  // Include user.id on session
-  callbacks: {
-    session({ session, token, user }) {
-      return session // The return type will match the one returned in `useSession()`
-    },
-  },
   // Configure one or more authentication providers
   adapter: PrismaAdapter(prisma),
   providers: [
@@ -19,6 +13,15 @@ export const authOptions: NextAuthOptions = {
     }),
     // ...add more providers here
   ],
+  theme: {
+    colorScheme: 'light',
+  },
+  callbacks: {
+    async jwt({ token }) {
+      token.userRole = 'admin';
+      return token;
+    },
+  },
 };
 
 export default NextAuth(authOptions);
