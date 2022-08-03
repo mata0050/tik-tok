@@ -1,10 +1,24 @@
 import type { NextPage } from 'next';
-import Head from 'next/head';
-import Image from 'next/image';
-import styles from '../styles/Home.module.css';
+import { useSession, signIn, signOut } from 'next-auth/react';
 
-const Home: NextPage = () => {
-  return <h1 className='text-5xl font-bold underline'>Hello world!</h1>;
-};
+export default function Home() {
+  // const hello = trpc.useQuery(['user.getAll']);
+  // if (!hello.data) {
+  //   return <div>Loading...</div>;
 
-export default Home;
+  // }
+
+  const { data: session } = useSession();
+
+  return (
+    <div>
+      {session ? (
+        <button onClick={() => signOut}>Sign out</button>
+      ) : (
+        <button onClick={() => signIn}>sigin in</button>
+      )}
+
+      <h1>hello</h1>
+    </div>
+  );
+}
