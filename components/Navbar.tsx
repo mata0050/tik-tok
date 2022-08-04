@@ -1,11 +1,14 @@
 import Link from 'next/link';
-import React from 'react';
+import React, { useContext } from 'react';
 import { useSession, signIn, signOut } from 'next-auth/react';
 import Image from 'next/image';
 import { BsSearch } from 'react-icons/bs';
+import { UserContext } from '../context/UserContext';
 
 function Navbar() {
   const { data: session } = useSession();
+  const user = useContext(UserContext);
+
 
   return (
     <nav className='bg-white border-b-2 flex justify-between items-center py-2 px-10 fixed w-full z-10'>
@@ -28,14 +31,11 @@ function Navbar() {
       </div>
 
       <ul className='flex gap-4 pt-1'>
-        <li>
-          <button
-            onClick={() => signOut()}
-            className='py-[4px] px-5 text-md border-2 font-bold rounded hover:opacity-70'
-          >
+        <Link href='/upload'>
+          <a className='py-[4px] px-5 text-md border-2 font-bold rounded hover:opacity-70 h-[36px]'>
             + Upload
-          </button>
-        </li>
+          </a>
+        </Link>
 
         {session ? (
           <>
@@ -50,7 +50,7 @@ function Navbar() {
 
             <li className='mr-8'>
               <Image
-                src={session?.user?.image}
+                src={user.image}
                 alt='profile picture'
                 width={40}
                 height={40}

@@ -2,7 +2,6 @@
 import { unstable_getServerSession } from 'next-auth/next';
 import { authOptions } from './auth/[...nextauth]';
 import type { NextApiRequest, NextApiResponse } from 'next';
-import { isGeneratorFunction } from 'util/types';
 import { prisma } from '../../db/client';
 import { z } from 'zod';
 
@@ -24,7 +23,7 @@ async function createPost(req: NextApiRequest, res: NextApiResponse) {
     return res.json(upload);
   } catch (error) {
     return res.status(400).send({
-      message: `Yo, bad payload!`,
+      message: `Error, Please try again`,
       error,
     });
   }
