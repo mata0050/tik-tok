@@ -33,7 +33,14 @@ async function getAllPosts(res: NextApiResponse) {
   try {
     const posts = await prisma.post.findMany({
       include: {
-        User: true,
+        User: {
+          select: {
+            id: true,
+            name: true,
+            email: true,
+            image: true,
+          },
+        },
       },
     });
     return res.json(posts);
