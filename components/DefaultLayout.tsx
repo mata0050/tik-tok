@@ -13,7 +13,6 @@ export const DefaultLayout = ({ children }: DefaultLayoutProps) => {
     axios.get('/api/user')
   );
   
-
   return (
     <>
       <Head>

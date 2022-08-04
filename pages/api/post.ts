@@ -17,10 +17,26 @@ async function createPost(req: NextApiRequest, res: NextApiResponse) {
   try {
     const data = schema.parse(req.body);
 
-    const upload = await prisma.post.create({
+    const posts = await prisma.post.create({
       data: data,
     });
-    return res.json(upload);
+    return res.json(posts);
+  } catch (error) {
+    return res.status(400).send({
+      message: `Error, Please try again`,
+      error,
+    });
+  }
+}
+
+async function getAllPosts(res: NextApiResponse) {
+  try {
+    const posts = await prisma.post.findMany({
+      include: {
+        User: true,
+      },
+    });
+    return res.json(posts);
   } catch (error) {
     return res.status(400).send({
       message: `Error, Please try again`,
@@ -38,6 +54,10 @@ export default async function handler(
   if (session) {
     if (req.method === 'POST') {
       createPost(req, res);
+    }
+
+    if (req.method === 'GET') {
+      getAllPosts(res);
     }
   } else {
     res.json({

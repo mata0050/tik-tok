@@ -1,43 +1,19 @@
-import { useState, useEffect } from 'react';
-import { useSession, signIn, signOut } from 'next-auth/react';
+import { useQuery } from "@tanstack/react-query";
+import axios from "axios";
+import { PostType } from "../types/PostTypes";
 
 export default function Home() {
-  // const hello = trpc.useQuery(['user.getAll']);
-  // if (!hello.data) {
-  //   return <div>Loading...</div>;
+  const { isLoading, isError, data, error } = useQuery(['posts'], () =>
+    axios.get('/api/post')
+  );
+  const posts = data?.data as PostType[];
 
-  // }
-
-  const { data: session, status } = useSession();
-  const loading = status === 'loading';
-  const [content, setContent] = useState();
-
-  // Fetch content from protected route
-  useEffect(() => {
-    const fetchData = async () => {
-      const res = await fetch('/api/protected');
-      const json = await res.json();
-      if (json.content) {
-        setContent(json.content);
-      }
-    };
-    fetchData();
-  }, [session]);
+  console.log(posts)
+  
 
   return (
     <div>
-      {/* {session ? (
-        <button onClick={() => signOut()}>Sign out</button>
-      ) : (
-        <button onClick={() => signIn()}>sigin in</button>
-      )}
-
-      <h1>hello</h1>
-
-      <h1>Protected Page</h1>
-      <p>
-        <strong>{content ?? '\u00a0'}</strong>
-      </p> */}
+  
     </div>
   );
 }

@@ -49,13 +49,15 @@ function Navbar() {
             </li>
 
             <li className='mr-8'>
-              <Image
-                src={user.image}
-                alt='profile picture'
-                width={40}
-                height={40}
-                className='rounded-full '
-              />
+              {Object.keys(user).length !== 0 && (
+                <Image
+                  src={user.image}
+                  alt='profile picture'
+                  width={40}
+                  height={40}
+                  className='rounded-full '
+                />
+              )}
             </li>
           </>
         ) : (

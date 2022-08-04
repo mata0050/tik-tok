@@ -1,10 +1,11 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import Footer from '../components/Footer';
 import { useForm } from 'react-hook-form';
 import { BsCloudUploadFill } from 'react-icons/bs';
 import Input from '../components/Input';
 import { useMutation } from '@tanstack/react-query';
 import axios from 'axios';
+import { UserContext } from '../context/UserContext';
 
 function VideoUpload() {
   return (
@@ -22,10 +23,12 @@ function VideoUpload() {
 }
 
 function Form() {
-  const {mutate: createPost} = useMutation(async (newPost) => {
-    return axios.post('/api/upload', newPost);
+  const { id } = useContext(UserContext);
+  const { mutate: createPost } = useMutation(async (newPost) => {
+    return axios.post('/api/post', newPost);
   });
-  
+
+
   const {
     register,
     handleSubmit,
@@ -34,9 +37,8 @@ function Form() {
   } = useForm();
 
   const onSubmit = async (data: any) => {
-    createPost({...data, userId: 'cl6cz5ak800064hxggtjfivg5'});
+    createPost({ ...data, userId: id });
   };
-
 
   return (
     <form onSubmit={handleSubmit(onSubmit)} className='w-2/3'>
