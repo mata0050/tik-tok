@@ -6,7 +6,7 @@ import Link from 'next/link';
 
 export default function SideBar() {
   return (
-    <div className='w-1/3 p-4 pt-[100px] border-b-2 border-gray-400 fixed h-screen'>
+    <div className='w-1/3 p-4 pt-[100px] fixed h-screen'>
       <Link href={'#'}>
         <a className='flex items-center gap-3 text-lg hover:text-pink mb-3'>
           <AiFillHome className='text-2xl'/>
@@ -20,7 +20,7 @@ export default function SideBar() {
         </a>
       </Link>
       <Link href={'#'}>
-        <a className='flex items-center gap-3 text-lg hover:text-pink mb-3'>
+        <a className='flex items-center gap-3 text-lg hover:text-pink mb-3 pb-8 border-b-[1px] border-gray-200 mr-8'>
           <AiOutlineVideoCamera className='text-2xl'/>
           <span className='font-bold'>LIVE</span>
         </a>

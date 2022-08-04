@@ -9,9 +9,9 @@ type AllPostsProps = PostType & { User: UserType };
 
 function PostCard(props: PostType & { User: UserType }) {
   return (
-    <div className='flex flex-col pr-16 '>
+    <div className='flex flex-col pr-16 pb-10 border-b  border-gray-200  mb-10'>
       <div className='flex items-center justify-between '>
-        <div className='flex flex-row gap-4'>
+        <div className='flex flex-row gap-4 items-center'>
           <Image
             src={props.User.image}
             alt=''
