@@ -3,11 +3,13 @@ import Footer from '../components/Footer';
 import { useForm } from 'react-hook-form';
 import { BsCloudUploadFill } from 'react-icons/bs';
 import Input from '../components/Input';
+import { useMutation } from '@tanstack/react-query';
+import axios from 'axios';
 
 function VideoUpload() {
   return (
-    <div className='border-gray-500 border-2 border-dashed	w-1/3 p-8 flex flex-col items-center rounded w-1/3'>
-      <BsCloudUploadFill className='text-3xl  text-gray-400 my-4' />
+    <div className='border-gray-500 border-2 border-dashed p-8 pt-16 flex flex-col items-center rounded w-1/3'>
+      <BsCloudUploadFill className='text-4xl  text-gray-400 my-4' />
 
       <h3 className='text-xl font-semibold mb-1'>Select video to upload</h3>
       <p className='text-sm mb-2'>Or drag and drop a file</p>
@@ -20,6 +22,10 @@ function VideoUpload() {
 }
 
 function Form() {
+  const {mutate: createPost} = useMutation(async (newPost) => {
+    return axios.post('/api/upload', newPost);
+  });
+  
   const {
     register,
     handleSubmit,
@@ -28,13 +34,10 @@ function Form() {
   } = useForm();
 
   const onSubmit = async (data: any) => {
-    //     try {
-    //       await addUser.mutateAsync(data);
-    //     } catch (error) {
-    //       console.error(error);
-    //       toast.error('Please Register again');
-    //     }
+    createPost({...data, userId: 'cl6cz5ak800064hxggtjfivg5'});
   };
+
+
   return (
     <form onSubmit={handleSubmit(onSubmit)} className='w-2/3'>
       <Input
@@ -49,11 +52,11 @@ function Form() {
       <label className='block'>
         <span className='text-gray-700'>Who can view this video</span>
         <select
-          {...register('videoUrl', { required: true })}
+          {...register('privacy', { required: true })}
           className='mt-1 block w-1/2 rounded-md border-grey-500 h-[45px] border-2 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 mb-4 px-3'
         >
-          <option value='public'>Public</option>
-          <option value='private'>Private</option>
+          <option value='PUBLIC'>Public</option>
+          <option value='PRIVATE'>Private</option>
         </select>
       </label>
 
@@ -66,7 +69,7 @@ function Form() {
       <div className='flex gap-6 mt-10'>
         <button
           // disabled={isLoading}
-          type='submit'
+          // type='submit'
           className='my-4 capitalize border-2  font-medium py-2 px-8 rounded-md hover:opacity-70'
         >
           <span>Discard</span>
