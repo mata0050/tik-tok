@@ -26,7 +26,7 @@ export default function Home() {
 
   return (
     <div>
-      {session ? (
+      {/* {session ? (
         <button onClick={() => signOut()}>Sign out</button>
       ) : (
         <button onClick={() => signIn()}>sigin in</button>
@@ -37,7 +37,7 @@ export default function Home() {
       <h1>Protected Page</h1>
       <p>
         <strong>{content ?? '\u00a0'}</strong>
-      </p>
+      </p> */}
     </div>
   );
 }
