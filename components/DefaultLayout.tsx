@@ -12,7 +12,7 @@ export const DefaultLayout = ({ children }: DefaultLayoutProps) => {
   const { isLoading, isError, data, error } = useQuery(['user'], () =>
     axios.get('/api/user')
   );
-  
+
   return (
     <>
       <Head>
@@ -20,9 +20,8 @@ export const DefaultLayout = ({ children }: DefaultLayoutProps) => {
         <link rel='icon' href='/favicon.ico' />
       </Head>
 
-      <UserContext.Provider value={{...data?.data}}>
+      <UserContext.Provider value={{ ...data?.data }}>
         <Navbar />
-        {/* SideBar */}
         <main>{children}</main>
       </UserContext.Provider>
 

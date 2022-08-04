@@ -1,6 +1,7 @@
 import { useQuery } from '@tanstack/react-query';
 import axios from 'axios';
 import Image from 'next/image';
+import SideBar from '../components/SideBar';
 import { PostType } from '../types/PostTypes';
 import { UserType } from '../types/UserTypes';
 
@@ -8,9 +9,9 @@ type AllPostsProps = PostType & { User: UserType };
 
 function PostCard(props: PostType & { User: UserType }) {
   return (
-    <>
-      <div className='flex items-center justify-between w-2/3'>
-        <div className='flex gap-4'>
+    <div className='flex flex-col pr-16 '>
+      <div className='flex items-center justify-between '>
+        <div className='flex flex-row gap-4'>
           <Image
             src={props.User.image}
             alt=''
@@ -41,7 +42,7 @@ function PostCard(props: PostType & { User: UserType }) {
         allowFullScreen
         className='rounded-xl ml-16 mt-8'
       />
-    </>
+    </div>
   );
 }
 
@@ -52,10 +53,35 @@ export default function Home() {
   const posts = data?.data as AllPostsProps[];
 
   return (
-    <div className='pt-[100px]'>
-      {!isLoading &&
-        !isError &&
-        posts.map((post) => <PostCard key={post.id} {...post} />)}
+    <div className='relative '>
+      <SideBar />
+      <div className='ml-60 p-[100px]'>
+        {!isLoading &&
+          !isError &&
+          posts.map((post) => <PostCard key={post.id} {...post} />)}
+
+{!isLoading &&
+          !isError &&
+          posts.map((post) => <PostCard key={post.id} {...post} />)}
+
+{!isLoading &&
+          !isError &&
+          posts.map((post) => <PostCard key={post.id} {...post} />)}
+
+
+{!isLoading &&
+          !isError &&
+          posts.map((post) => <PostCard key={post.id} {...post} />)}
+
+
+{!isLoading &&
+          !isError &&
+          posts.map((post) => <PostCard key={post.id} {...post} />)}
+
+{!isLoading &&
+          !isError &&
+          posts.map((post) => <PostCard key={post.id} {...post} />)}
+      </div>
     </div>
   );
 }
