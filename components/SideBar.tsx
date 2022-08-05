@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { AiFillHome } from 'react-icons/ai';
 import { BsPeople } from 'react-icons/bs';
 import { AiOutlineVideoCamera } from 'react-icons/ai';
@@ -9,6 +9,7 @@ import { useQuery } from '@tanstack/react-query';
 import { UserType } from '../types/UserTypes';
 import { MdVerified } from 'react-icons/md';
 import { FooterData } from './Footer';
+import { SideBarContext } from '../context/SideBarContext';
 
 function TopSideBarLinks() {
   return (
@@ -36,9 +37,7 @@ function TopSideBarLinks() {
 }
 
 function SuggestedAccounts() {
-  const { data, isLoading } = useQuery(['users'], () => axios.get('api/users'));
-
-  const users: UserType[] | undefined = data?.data;
+  const {users} = useContext(SideBarContext);
 
   return (
     <>
@@ -80,9 +79,7 @@ function FollowingAccounts() {
 }
 
 function Discover() {
-  const { data } = useQuery(['discover'], () => axios.get('api/discover'));
-
-  const discover: string[] | undefined = data?.data;
+  const {discover} = useContext(SideBarContext);
   return (
     <div className='border-b-[1px] -mt-4 pb-8 mr-8'>
       <span className='font-medium text-gray-500 text-sm pb-3 block'>

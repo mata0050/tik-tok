@@ -7,7 +7,14 @@ import { z } from 'zod';
 
 async function getAllUser(res: NextApiResponse) {
   try {
-    const users = await prisma.user.findMany();
+    const users = await prisma.user.findMany({
+      select: {
+        id: true,
+        email: true,
+        name: true,
+        image: true,
+      },
+    });
     return res.json(users);
   } catch (error) {
     return res.status(400).send({

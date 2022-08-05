@@ -1,6 +1,7 @@
 import { useQuery } from '@tanstack/react-query';
 import axios from 'axios';
 import Image from 'next/image';
+import { MainLayout } from '../components/MainLayout';
 import SideBar from '../components/SideBar';
 import { PostType } from '../types/PostTypes';
 import { UserType } from '../types/UserTypes';
@@ -46,9 +47,6 @@ function PostCard(props: PostType & { User: UserType }) {
   );
 }
 
-
-
-
 export default function Home() {
   const { isLoading, isError, data, error } = useQuery(['posts'], () =>
     axios.get('/api/post')
@@ -56,13 +54,10 @@ export default function Home() {
   const posts = data?.data as AllPostsProps[];
 
   return (
-    <div className='relative '>
-      <SideBar />
-      <div className='ml-60 p-[100px]'>
-        {!isLoading &&
-          !isError &&
-          posts.map((post) => <PostCard key={post.id} {...post} />)}
-      </div>
-    </div>
+    <MainLayout>
+      {!isLoading &&
+        !isError &&
+        posts.map((post) => <PostCard key={post.id} {...post} />)}
+    </MainLayout>
   );
 }
