@@ -78,12 +78,38 @@ function FollowingAccounts() {
   );
 }
 
+function Discover() {
+  const { data } = useQuery(['discover'], () => axios.get('api/discover'));
+
+  const discover: string[] | undefined = data?.data;
+  return (
+    <div className='border-b-[1px] -mt-4 pb-8 mr-8'>
+      <span className='font-medium text-gray-500 text-sm pb-3 block'>
+        Discover
+      </span>
+
+      <div className='flex gap-4 flex-wrap'>
+        {discover !== undefined &&
+          discover.map((discover) => (
+            <span
+              key={discover}
+              className='text-sm border-[1px] py-1 px-2 rounded-full'
+            >
+              {discover}
+            </span>
+          ))}
+      </div>
+    </div>
+  );
+}
+
 export default function SideBar() {
   return (
     <div className='w-1/3 p-4 pt-[100px] fixed h-screen'>
       <TopSideBarLinks />
       <SuggestedAccounts />
       <FollowingAccounts />
+      <Discover />
     </div>
   );
 }
