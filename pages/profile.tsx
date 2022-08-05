@@ -29,8 +29,32 @@ function ProfileView() {
         </Button>
       </div>
 
-      <h2 className='text-xl font-medium border-b-2 text-center mt-6 pb-[2px] mx-8'>Video</h2>
+      <h2 className='text-xl font-medium border-b-2 text-center mt-6 pb-[2px] mx-8'>
+        Video
+      </h2>
     </>
+  );
+}
+
+function Videos() {
+  const { posts } = useContext(UserContext);
+  return (
+    <div className='flex flex-wrap'>
+      {posts.map((post) => (
+        <div key={post.id}>
+          <iframe
+            width='221'
+            height='327'
+            src={post.videoUrl}
+            title='Do you copy paste your code?'
+            frameBorder='0'
+            allow='accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture'
+            allowFullScreen
+            className='rounded-xl ml-16 mt-8'
+          />
+        </div>
+      ))}
+    </div>
   );
 }
 
@@ -39,6 +63,7 @@ export default function Profile() {
     <MainLayout>
       <div>
         <ProfileView />
+        <Videos />
       </div>
     </MainLayout>
   );

@@ -35,6 +35,9 @@ async function getUser(email: any, res: NextApiResponse) {
       where: {
         email,
       },
+      include: {
+        posts: true,
+      },
     });
     return res.json(user);
   } catch (error) {
@@ -45,7 +48,6 @@ async function getUser(email: any, res: NextApiResponse) {
   }
 }
 
-
 export default async function handler(
   req: NextApiRequest,
   res: NextApiResponse
@@ -53,7 +55,6 @@ export default async function handler(
   const session = await unstable_getServerSession(req, res, authOptions);
   const userEmail = session?.user?.email;
 
-  
   if (session) {
     if (req.method === 'GET') {
       return getUser(userEmail, res);

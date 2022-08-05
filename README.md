@@ -59,7 +59,7 @@ Open [http://localhost:3000](http://localhost:3000) with your browser to see the
 ## Features to work on
 
 - [ ] User Should be able to edit, delete their posts.
-- [ ] User public page where user can change profile settings.
+- [x] User public page where user can change profile settings.
 - [ ] Side Bar Discover links should link to discover page.
 - [ ] Search Bar
 - [ ] Add Followers for users
