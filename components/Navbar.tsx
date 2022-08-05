@@ -5,6 +5,7 @@ import Image from 'next/image';
 import { BsSearch } from 'react-icons/bs';
 import { UserContext } from '../context/UserContext';
 
+
 function Navbar() {
   const { data: session } = useSession();
   const user = useContext(UserContext);
