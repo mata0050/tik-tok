@@ -47,8 +47,14 @@ Start app
 
 Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
+## 
+
+
 ![Tik Tok](https://user-images.githubusercontent.com/58061791/183218450-7cade322-a8bf-4882-b4f0-a91d1da67c0b.png)
 
+## 
+
+![Tik Tok upload page](https://user-images.githubusercontent.com/58061791/183219187-3fdd1354-4551-4eef-8fd9-17a4389e3545.png)
 
 ## Features to work on
 
