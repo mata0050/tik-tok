@@ -5,6 +5,7 @@ import Navbar from './Navbar';
 import { UserContext } from '../context/UserContext';
 import { useQuery } from '@tanstack/react-query';
 import axios from 'axios';
+import { Toaster } from 'react-hot-toast';
 
 type DefaultLayoutProps = { children: ReactNode };
 
@@ -21,6 +22,7 @@ export const DefaultLayout = ({ children }: DefaultLayoutProps) => {
       </Head>
 
       <UserContext.Provider value={{ ...data?.data }}>
+        <Toaster />
         <Navbar />
         <main>{children}</main>
       </UserContext.Provider>

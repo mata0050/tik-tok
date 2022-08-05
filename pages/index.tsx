@@ -48,6 +48,7 @@ function PostCard(props: PostType & { User: UserType }) {
 
 
 
+
 export default function Home() {
   const { isLoading, isError, data, error } = useQuery(['posts'], () =>
     axios.get('/api/post')

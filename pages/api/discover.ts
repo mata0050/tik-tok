@@ -20,7 +20,7 @@ async function getAllPosts(res: NextApiResponse) {
       });
     });
 
-    return res.json(tags);
+    return res.json(tags.slice(0, 8));
   } catch (error) {
     return res.status(400).send({
       message: `Error, Please try again`,

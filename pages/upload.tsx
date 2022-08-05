@@ -7,6 +7,8 @@ import { useMutation } from '@tanstack/react-query';
 import axios from 'axios';
 import { UserContext } from '../context/UserContext';
 import { useSession, signIn } from 'next-auth/react';
+import toast from 'react-hot-toast';
+
 
 function NotAuthenticated() {
   return (
@@ -54,6 +56,8 @@ function Form() {
 
   const onSubmit = async (data: any) => {
     createPost({ ...data, userId: id });
+    toast.success('Post created successfully');
+    reset();
   };
 
   return (
