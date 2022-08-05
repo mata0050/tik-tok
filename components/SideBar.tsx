@@ -9,13 +9,9 @@ import { useQuery } from '@tanstack/react-query';
 import { UserType } from '../types/UserTypes';
 import { MdVerified } from 'react-icons/md';
 
-export default function SideBar() {
-  const { data, isLoading } = useQuery(['user'], () => axios.get('api/users'));
-
-  const users: UserType[] | undefined = data?.data;
-
+function TopSideBarLinks() {
   return (
-    <div className='w-1/3 p-4 pt-[100px] fixed h-screen'>
+    <>
       <Link href={'#'}>
         <a className='flex items-center gap-3 text-lg hover:text-pink mb-3'>
           <AiFillHome className='text-2xl' />
@@ -34,7 +30,17 @@ export default function SideBar() {
           <span className='font-bold'>LIVE</span>
         </a>
       </Link>
+    </>
+  );
+}
 
+function SuggestedAccounts() {
+  const { data, isLoading } = useQuery(['users'], () => axios.get('api/users'));
+
+  const users: UserType[] | undefined = data?.data;
+
+  return (
+    <>
       <span className='text-sm text-gray-600 font-semibold'>
         Suggested accounts
       </span>
@@ -55,6 +61,15 @@ export default function SideBar() {
             <MdVerified className='text-lg text-blue ' />
           </div>
         ))}
+    </>
+  );
+}
+
+export default function SideBar() {
+  return (
+    <div className='w-1/3 p-4 pt-[100px] fixed h-screen'>
+      <TopSideBarLinks />
+      <SuggestedAccounts />
     </div>
   );
 }
