@@ -45,6 +45,7 @@ async function getUser(email: any, res: NextApiResponse) {
   }
 }
 
+
 export default async function handler(
   req: NextApiRequest,
   res: NextApiResponse
@@ -52,11 +53,11 @@ export default async function handler(
   const session = await unstable_getServerSession(req, res, authOptions);
   const userEmail = session?.user?.email;
 
-  if (req.method === 'GET') {
-    getUser(userEmail, res);
-  }
-
+  
   if (session) {
+    if (req.method === 'GET') {
+      return getUser(userEmail, res);
+    }
     // protected routes
   } else {
     res.json({

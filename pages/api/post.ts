@@ -58,13 +58,13 @@ export default async function handler(
 ) {
   const session = await unstable_getServerSession(req, res, authOptions);
 
+  if (req.method === 'GET') {
+    return getAllPosts(res);
+  }
+  
   if (session) {
     if (req.method === 'POST') {
       createPost(req, res);
-    }
-
-    if (req.method === 'GET') {
-      getAllPosts(res);
     }
   } else {
     res.json({
