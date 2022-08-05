@@ -9,7 +9,6 @@ import { UserContext } from '../context/UserContext';
 import { useSession, signIn } from 'next-auth/react';
 import toast from 'react-hot-toast';
 
-
 function NotAuthenticated() {
   return (
     <div className='pt-[100px] flex  justify-center'>
@@ -43,7 +42,7 @@ function VideoUpload() {
 
 function Form() {
   const { id } = useContext(UserContext);
-  const { mutate: createPost } = useMutation(async (newPost) => {
+  const { mutate: createPost , isLoading} = useMutation(async (newPost) => {
     return axios.post('/api/post', newPost);
   });
 
@@ -90,15 +89,14 @@ function Form() {
 
       <div className='flex gap-6 mt-10'>
         <button
-          // disabled={isLoading}
-          // type='submit'
+          onClick={() => reset()}
           className='my-4 capitalize border-2  font-medium py-2 px-8 rounded-md hover:opacity-70'
         >
           <span>Discard</span>
         </button>
 
         <button
-          // disabled={isLoading}
+          disabled={isLoading}
           type='submit'
           className='my-4 capitalize bg-white font-medium py-2 px-10 rounded-md hover:opacity-70'
         >
