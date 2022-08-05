@@ -1,34 +1,59 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+ # Getting Started
 
-## Getting Started
+This is a creddle clone project built using the following technology ***NextJs***, ***Tailwind***, ***Prisma***, ***MySQL***, ***Typescript***, ***NextAuth***
+## Step 1
 
-First, run the development server:
+install dependencies
 
 ```bash
-npm run dev
-# or
-yarn dev
+  npm install
+```
+
+## Step 2
+
+Create an account a [planetscale.com](https://planetscale.com/) and create a new database called **_tik-tok_**. Go to your terminal and login using:
+
+```bash
+  npm run db:login
+```
+
+
+## Step 3
+Add Next Auth secrets check the example.env
+
+## Step 4
+
+Push prisma scheme to Database
+
+```bash
+  npm run db:push
+```
+
+## Step 5
+
+Connect to Database
+
+```bash
+  npm run db:connect
+```
+
+## Step 6
+
+Start app
+
+```bash
+  npm run dev
 ```
 
 Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
-You can start editing the page by modifying `pages/index.tsx`. The page auto-updates as you edit the file.
+![Tik Tok](https://user-images.githubusercontent.com/58061791/183218450-7cade322-a8bf-4882-b4f0-a91d1da67c0b.png)
 
-[API routes](https://nextjs.org/docs/api-routes/introduction) can be accessed on [http://localhost:3000/api/hello](http://localhost:3000/api/hello). This endpoint can be edited in `pages/api/hello.ts`.
 
-The `pages/api` directory is mapped to `/api/*`. Files in this directory are treated as [API routes](https://nextjs.org/docs/api-routes/introduction) instead of React pages.
+## Features to work on
 
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+- [ ] User Should be able to edit, delete their posts.
+- [ ] User public page where user can change profile settings.
+- [ ] Side Bar Discover links should link to discover page.
+- [ ] Search Bar
+- [ ] Add Followers for users
