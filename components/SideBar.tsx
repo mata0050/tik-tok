@@ -65,11 +65,25 @@ function SuggestedAccounts() {
   );
 }
 
+function FollowingAccounts() {
+  return (
+    <div className='border-t-[1px] border-b-[1px] border-gray-300 my-8 py-4 mr-8'>
+      <span className='font-medium text-gray-500 text-sm pb-3 block'>
+        Following accounts
+      </span>
+      <p className='text-sm text-gray-500'>
+        Accounts you follow will appear here
+      </p>
+    </div>
+  );
+}
+
 export default function SideBar() {
   return (
     <div className='w-1/3 p-4 pt-[100px] fixed h-screen'>
       <TopSideBarLinks />
       <SuggestedAccounts />
+      <FollowingAccounts />
     </div>
   );
 }
