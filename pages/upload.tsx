@@ -6,6 +6,23 @@ import Input from '../components/Input';
 import { useMutation } from '@tanstack/react-query';
 import axios from 'axios';
 import { UserContext } from '../context/UserContext';
+import { useSession, signIn } from 'next-auth/react';
+
+function NotAuthenticated() {
+  return (
+    <div className='pt-[100px] flex  justify-center'>
+      <div className='flex flex-col '>
+        <h2 className='mb-6 text-xl font-bold'>Login to Upload</h2>
+        <button
+          onClick={() => signIn()}
+          className='py-[4px] px-5 bg-pink text-white text-md border-2 rounded hover:opacity-70'
+        >
+          Log in
+        </button>
+      </div>
+    </div>
+  );
+}
 
 function VideoUpload() {
   return (
@@ -27,7 +44,6 @@ function Form() {
   const { mutate: createPost } = useMutation(async (newPost) => {
     return axios.post('/api/post', newPost);
   });
-
 
   const {
     register,
@@ -90,6 +106,10 @@ function Form() {
 }
 
 export default function Upload() {
+  const { data: session } = useSession();
+  if (!session) {
+    return <NotAuthenticated />;
+  }
   return (
     <div className='pt-[70px] bg-gray-100 '>
       <div className='bg-white w-full p-3' />

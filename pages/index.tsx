@@ -46,6 +46,8 @@ function PostCard(props: PostType & { User: UserType }) {
   );
 }
 
+
+
 export default function Home() {
   const { isLoading, isError, data, error } = useQuery(['posts'], () =>
     axios.get('/api/post')
@@ -57,28 +59,6 @@ export default function Home() {
       <SideBar />
       <div className='ml-60 p-[100px]'>
         {!isLoading &&
-          !isError &&
-          posts.map((post) => <PostCard key={post.id} {...post} />)}
-
-{!isLoading &&
-          !isError &&
-          posts.map((post) => <PostCard key={post.id} {...post} />)}
-
-{!isLoading &&
-          !isError &&
-          posts.map((post) => <PostCard key={post.id} {...post} />)}
-
-
-{!isLoading &&
-          !isError &&
-          posts.map((post) => <PostCard key={post.id} {...post} />)}
-
-
-{!isLoading &&
-          !isError &&
-          posts.map((post) => <PostCard key={post.id} {...post} />)}
-
-{!isLoading &&
           !isError &&
           posts.map((post) => <PostCard key={post.id} {...post} />)}
       </div>
