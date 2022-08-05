@@ -10,7 +10,7 @@ type SectionProps = {
   title: string;
 };
 
-const FooterData: FooterProps[] = [
+export const FooterData: FooterProps[] = [
   {
     sectionTitle: 'Company',
     section: [

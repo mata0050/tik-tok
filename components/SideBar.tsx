@@ -8,6 +8,7 @@ import axios from 'axios';
 import { useQuery } from '@tanstack/react-query';
 import { UserType } from '../types/UserTypes';
 import { MdVerified } from 'react-icons/md';
+import { FooterData } from './Footer';
 
 function TopSideBarLinks() {
   return (
@@ -103,6 +104,22 @@ function Discover() {
   );
 }
 
+function Footer() {
+  return (
+    <div className='mt-8 absolute bottom-10 mr-6'>
+      {FooterData.map((footer) => (
+        <div key={footer.sectionTitle} className='flex gap-4 flex-wrap'>
+          {footer.section.map((section) => (
+            <span key={section.title} className='block text-[11px] opacity-60 font-medium'>{section.title}</span>
+          ))}
+        </div>
+      ))}
+
+      <span className='block text-[11px] opacity-60 font-medium mt-10'>© 2022 TikTok</span>
+    </div>
+  );
+}
+
 export default function SideBar() {
   return (
     <div className='w-1/3 p-4 pt-[100px] fixed h-screen'>
@@ -110,6 +127,7 @@ export default function SideBar() {
       <SuggestedAccounts />
       <FollowingAccounts />
       <Discover />
+      <Footer/>
     </div>
   );
 }
