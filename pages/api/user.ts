@@ -5,29 +5,33 @@ import type { NextApiRequest, NextApiResponse } from 'next';
 import { prisma } from '../../db/client';
 import { z } from 'zod';
 
-// const schema = z.object({
-//   // id: z.string(),
-//   caption: z.string(),
-//   videoUrl: z.string(),
-//   privacy: z.enum(['PUBLIC', 'PRIVATE']),
-//   userId: z.string(),
-// });
+const schema = z.object({
+  id: z.string(),
+  name: z.string(),
+});
 
-// async function createPost(req: NextApiRequest, res: NextApiResponse) {
-//   try {
-//     const data = schema.parse(req.body);
+async function updateUser(req: NextApiRequest, res: NextApiResponse) {
+  try {
+    const data = schema.parse(req.body);
 
-//     const upload = await prisma.post.create({
-//       data: data,
-//     });
-//     return res.json(upload);
-//   } catch (error) {
-//     return res.status(400).send({
-//       message: `Error, Please try again`,
-//       error,
-//     });
-//   }
-// }
+    console.log(data);
+    const updateUser = await prisma.user.update({
+      where: {
+        id: data.id,
+      },
+      data: {
+        name: data.name,
+      },
+    });
+    console.log(updateUser);
+    return res.json(updateUser);
+  } catch (error) {
+    return res.status(400).send({
+      message: `Error, Please try again`,
+      error,
+    });
+  }
+}
 
 async function getUser(email: any, res: NextApiResponse) {
   try {
@@ -58,6 +62,11 @@ export default async function handler(
   if (session) {
     if (req.method === 'GET') {
       return getUser(userEmail, res);
+    }
+
+    if (req.method === 'PUT') {
+      console.log('PUT');
+      return updateUser(req, res);
     }
     // protected routes
   } else {

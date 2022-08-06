@@ -9,8 +9,10 @@ import toast from 'react-hot-toast';
 import { useForm } from 'react-hook-form';
 import Input from '../components/Input';
 import TextArea from '../components/TextArea';
+import axios from 'axios';
+import { useMutation, useQueryClient } from '@tanstack/react-query';
 
-function ProfileView() {
+function ProfileView({ onShowEdit }: { onShowEdit: () => void }) {
   const { email, name, image } = useContext(UserContext);
   return (
     <>
@@ -28,7 +30,7 @@ function ProfileView() {
         </div>
       </div>
       <div className='ml-28 -mt-4'>
-        <Button onClick={() => {}}>
+        <Button onClick={onShowEdit}>
           <FaRegEdit className='inline pb-1 mr-2' />
           <span>Edit profile</span>
         </Button>
@@ -64,18 +66,33 @@ function Videos() {
   );
 }
 
-function EditProfile() {
+function EditProfile({ onShowEdit }: { onShowEdit: () => void }) {
   const {
     register,
     handleSubmit,
     formState: { errors },
     reset,
   } = useForm();
+  const queryClient = useQueryClient()
+  const { mutate: updateUser, isLoading } = useMutation(
+    async (updatedUser) => {
+      return axios.put('/api/user', updatedUser);
+    },
+    {
+      onSuccess: () => {
+        // Invalidate and refetch
+        queryClient.invalidateQueries(['user']);
+      },
+    }
+  );
+  const { name, id } = useContext(UserContext);
 
   const onSubmit = async (data: any) => {
-    // createPost({ ...data, userId: id });
-    toast.success('Post created successfully');
+    updateUser({ ...data, id: id });
     reset();
+    onShowEdit();
+    toast.success('Post created successfully');
+    
   };
 
   return (
@@ -85,14 +102,20 @@ function EditProfile() {
     >
       <div className='flex justify-between border-b-2 border-white pb-2 mb-8'>
         <h3 className='text-xl'>Edit profile</h3>
-        <MdClose className='text-2xl mr-6 cursor-pointer hover:opacity-60' />
+        <MdClose
+          className='text-2xl mr-6 cursor-pointer hover:opacity-60'
+          onClick={onShowEdit}
+        />
       </div>
 
-      <Input label='Name' register={register('name', { required: true })} />
+      <Input
+        label='Name'
+        register={register('name', { required: true, value: name })}
+      />
 
-      <TextArea label='Bio' register={register('bio')} />
+      {/* <TextArea label='Bio' register={register('bio')} /> */}
 
-      <div className='border-[1px] border-white  block w-full mt-10 mb-10'/>
+      <div className='border-[1px] border-white  block w-full mt-10 mb-10' />
       <button
         // disabled={isLoading}
         type='submit'
@@ -111,9 +134,9 @@ export default function Profile() {
   return (
     <MainLayout>
       <div className='relative'>
-        <ProfileView />
+        <ProfileView onShowEdit={onShowEdit} />
         <Videos />
-        <EditProfile />
+        {showEdit && <EditProfile onShowEdit={onShowEdit} />}
       </div>
     </MainLayout>
   );
