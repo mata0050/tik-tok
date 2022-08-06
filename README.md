@@ -56,6 +56,11 @@ Open [http://localhost:3000](http://localhost:3000) with your browser to see the
 
 ![Tik Tok upload page](https://user-images.githubusercontent.com/58061791/183219187-3fdd1354-4551-4eef-8fd9-17a4389e3545.png)
 
+##
+
+![Tik Tok Profile Page](https://user-images.githubusercontent.com/58061791/183222993-d2d22712-e743-462a-9e1d-ff8c2d91d09f.png)
+
+
 ## Features to work on
 
 - [ ] User Should be able to edit, delete their posts.

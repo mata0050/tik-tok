@@ -4,6 +4,11 @@ import Button from '../components/Button';
 import { MainLayout } from '../components/MainLayout';
 import { UserContext } from '../context/UserContext';
 import { FaRegEdit } from 'react-icons/fa';
+import { MdClose } from 'react-icons/md';
+import toast from 'react-hot-toast';
+import { useForm } from 'react-hook-form';
+import Input from '../components/Input';
+import TextArea from '../components/TextArea';
 
 function ProfileView() {
   const { email, name, image } = useContext(UserContext);
@@ -40,30 +45,75 @@ function Videos() {
   const { posts } = useContext(UserContext);
   return (
     <div className='flex flex-wrap'>
-      {posts.map((post) => (
-        <div key={post.id}>
-          <iframe
-            width='221'
-            height='327'
-            src={post.videoUrl}
-            title='Do you copy paste your code?'
-            frameBorder='0'
-            allow='accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture'
-            allowFullScreen
-            className='rounded-xl ml-16 mt-8'
-          />
-        </div>
-      ))}
+      {posts !== undefined &&
+        posts.map((post) => (
+          <div key={post.id}>
+            <iframe
+              width='221'
+              height='327'
+              src={post.videoUrl}
+              title='Do you copy paste your code?'
+              frameBorder='0'
+              allow='accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture'
+              allowFullScreen
+              className='rounded-xl ml-16 mt-8'
+            />
+          </div>
+        ))}
     </div>
   );
 }
 
+function EditProfile() {
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+    reset,
+  } = useForm();
+
+  const onSubmit = async (data: any) => {
+    // createPost({ ...data, userId: id });
+    toast.success('Post created successfully');
+    reset();
+  };
+
+  return (
+    <form
+      onSubmit={handleSubmit(onSubmit)}
+      className=' bg-gray-100 border-2 shadow-2xl p-6 fixed top-60 w-2/3 rounded-md '
+    >
+      <div className='flex justify-between border-b-2 border-white pb-2 mb-8'>
+        <h3 className='text-xl'>Edit profile</h3>
+        <MdClose className='text-2xl mr-6 cursor-pointer hover:opacity-60' />
+      </div>
+
+      <Input label='Name' register={register('name', { required: true })} />
+
+      <TextArea label='Bio' register={register('bio')} />
+
+      <div className='border-[1px] border-white  block w-full mt-10 mb-10'/>
+      <button
+        // disabled={isLoading}
+        type='submit'
+        className='my-4 border capitalize bg-white font-medium py-2 px-10 rounded-md hover:opacity-70'
+      >
+        <span>Save</span>
+      </button>
+    </form>
+  );
+}
+
 export default function Profile() {
+  const [showEdit, setShowEdit] = React.useState(false);
+  const onShowEdit = () => setShowEdit((prevState) => !prevState);
+
   return (
     <MainLayout>
-      <div>
+      <div className='relative'>
         <ProfileView />
         <Videos />
+        <EditProfile />
       </div>
     </MainLayout>
   );
