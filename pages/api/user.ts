@@ -14,7 +14,6 @@ async function updateUser(req: NextApiRequest, res: NextApiResponse) {
   try {
     const data = schema.parse(req.body);
 
-    console.log(data);
     const updateUser = await prisma.user.update({
       where: {
         id: data.id,
@@ -23,7 +22,6 @@ async function updateUser(req: NextApiRequest, res: NextApiResponse) {
         name: data.name,
       },
     });
-    console.log(updateUser);
     return res.json(updateUser);
   } catch (error) {
     return res.status(400).send({
@@ -34,6 +32,7 @@ async function updateUser(req: NextApiRequest, res: NextApiResponse) {
 }
 
 async function getUser(email: any, res: NextApiResponse) {
+  console.log('getUser')
   try {
     const user = await prisma.user.findUnique({
       where: {
@@ -43,6 +42,7 @@ async function getUser(email: any, res: NextApiResponse) {
         posts: true,
       },
     });
+
     return res.json(user);
   } catch (error) {
     return res.status(400).send({
@@ -59,13 +59,12 @@ export default async function handler(
   const session = await unstable_getServerSession(req, res, authOptions);
   const userEmail = session?.user?.email;
 
+  // console.log(session)
+
   if (session) {
     if (req.method === 'GET') {
       return getUser(userEmail, res);
-    }
-
-    if (req.method === 'PUT') {
-      console.log('PUT');
+    } else if (req.method === 'PUT') {
       return updateUser(req, res);
     }
     // protected routes

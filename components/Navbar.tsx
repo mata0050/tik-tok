@@ -9,7 +9,7 @@ import { UserContext } from '../context/UserContext';
 function Navbar() {
   const { data: session } = useSession();
   const user = useContext(UserContext);
-
+  
   return (
     <nav className='bg-white border-b-2 flex justify-between items-center py-2 px-10 fixed w-full z-10'>
       <Link href='/'>
@@ -51,7 +51,7 @@ function Navbar() {
             <li className='mr-8'>
               <Link href='/profile'>
                 <a>
-                  {Object.keys(user).length !== 0 && (
+                  {/* {Object.keys(user).length !== 0 && ( */}
                     <Image
                       src={user.image}
                       alt='profile picture'
@@ -59,7 +59,7 @@ function Navbar() {
                       height={40}
                       className='rounded-full '
                     />
-                  )}
+                  {/* )} */}
                 </a>
               </Link>
             </li>
